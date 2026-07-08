@@ -35,7 +35,7 @@ test("Verify error message, for a missing username", async ({ page }) => {
   await LoginPage.login_button.click();
 
   // Verify an error is visible
-  await expect(page.locator("[data-test='error']")).toBeVisible();
+  await expect(LoginPage.isErrorVisible()).toBeTruthy();
 
   // Verify the expected error message displays
   await expect(page.locator("[data-test='error']")).toContainText(
@@ -54,7 +54,7 @@ test("Verify error message, for a missing password", async ({ page }) => {
   await LoginPage.login_button.click();
 
   // Verify an error is visible
-  await expect(page.locator("[data-test='error']")).toBeVisible();
+  await expect(LoginPage.isErrorVisible()).toBeTruthy();
   // Verify the expected error message displays
   await expect(page.locator("[data-test='error']")).toContainText(
     "Epic sadface: Password is required",
@@ -74,7 +74,7 @@ test("Verify error message, for an incorrect password", async ({ page }) => {
   await LoginPage.login_button.click();
 
   // Verify an error is visible
-  await expect(page.locator("[data-test='error']")).toBeVisible();
+  await expect(LoginPage.isErrorVisible()).toBeTruthy();
 
   // Verify the expected error message displays
   await expect(page.locator("[data-test='error']")).toContainText(

@@ -22,4 +22,9 @@ export class Login {
     await this.password_input.fill(pass);
     await this.login_button.click();
   }
+
+  async isErrorVisible() {
+    const error = this.page.locator('[data-test="error"]');
+    return error.isVisible();
+  }
 }
