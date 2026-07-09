@@ -8,12 +8,14 @@ export class Login {
   readonly user_input: Locator;
   readonly password_input: Locator;
   readonly login_button: Locator;
+  readonly error: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.user_input = page.getByPlaceholder("Username");
     this.password_input = page.getByPlaceholder("Password");
     this.login_button = page.locator('[data-test="login-button"]');
+    this.error = page.locator('[data-test="error"]');
   }
 
   async sign_in(user: string, pass: string) {
@@ -24,7 +26,10 @@ export class Login {
   }
 
   async isErrorVisible() {
-    const error = this.page.locator('[data-test="error"]');
-    return error.isVisible();
+    return this.error.isVisible();
+  }
+
+  async getErrorMessage() {
+    return this.error.innerText();
   }
 }

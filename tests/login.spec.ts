@@ -38,7 +38,7 @@ test("Verify error message, for a missing username", async ({ page }) => {
   await expect(LoginPage.isErrorVisible()).toBeTruthy();
 
   // Verify the expected error message displays
-  await expect(page.locator("[data-test='error']")).toContainText(
+  await expect(LoginPage.getErrorMessage()).resolves.toContain(
     "Epic sadface: Username is required",
   );
 });
@@ -56,7 +56,7 @@ test("Verify error message, for a missing password", async ({ page }) => {
   // Verify an error is visible
   await expect(LoginPage.isErrorVisible()).toBeTruthy();
   // Verify the expected error message displays
-  await expect(page.locator("[data-test='error']")).toContainText(
+  await expect(LoginPage.getErrorMessage()).resolves.toContain(
     "Epic sadface: Password is required",
   );
 });
@@ -77,7 +77,7 @@ test("Verify error message, for an incorrect password", async ({ page }) => {
   await expect(LoginPage.isErrorVisible()).toBeTruthy();
 
   // Verify the expected error message displays
-  await expect(page.locator("[data-test='error']")).toContainText(
+  await expect(LoginPage.getErrorMessage()).resolves.toContain(
     "Epic sadface: Username and password do not match any user in this service",
   );
 });
