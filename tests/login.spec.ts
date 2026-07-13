@@ -81,3 +81,30 @@ test("Verify error message, for an incorrect password", async ({ page }) => {
     "Epic sadface: Username and password do not match any user in this service",
   );
 });
+
+test("Verify error message, for a Locked Out User", async ({ page }) => {
+  const LoginPage = new Login(page);
+
+  const lockedOutData = path.resolve(
+    __dirname,
+    "../playwright/.auth/lockedOutData.json",
+  );
+
+  const lockedOutUser = JSON.parse(fs.readFileSync(lockedOutData, "utf-8")) as {
+    user: string;
+    pass: string;
+  };
+
+  await LoginPage.user_input.fill(lockedOutUser.user);
+  await LoginPage.password_input.fill(lockedOutUser.pass);
+
+  await LoginPage.login_button.click();
+
+  // Verify an error is visible
+  await expect(LoginPage.isErrorVisible()).toBeTruthy();
+
+  // Verify the expected error message displays
+  await expect(LoginPage.getErrorMessage()).resolves.toContain(
+    "Epic sadface: Sorry, this user has been locked out.",
+  );
+});
