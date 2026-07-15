@@ -11,12 +11,6 @@ test("Add a product to cart", async ({ page }) => {
   // Retrieve the first product item
   const firstProductCard = await ProductsPage.getNthProductCard(0);
 
-  // Store the products name from the 1st product card.
-  const firstProductName = await firstProductCard
-    .locator(".inventory_item_name")
-    .first()
-    .textContent()!;
-
   // Store the add to cart button from the 1st product card.
   const firstButton = firstProductCard.getByRole("button", {
     name: "Add to cart",
@@ -85,12 +79,6 @@ test("Remove an item from the cart", async ({ page }) => {
   // Retrieve the first product item
   const firstProductCard = await ProductsPage.getNthProductCard(0);
 
-  // Store the products name from the 1st product card.
-  const firstProductName = await firstProductCard
-    .locator(".inventory_item_name")
-    .first()
-    .textContent()!;
-
   // Store the add to cart button from the 1st product card.
   const firstButton = firstProductCard.getByRole("button", {
     name: "Add to cart",
@@ -101,17 +89,11 @@ test("Remove an item from the cart", async ({ page }) => {
 
   await page.locator(".shopping_cart_link").click();
 
-  // Pull the recently added cart item's name.
-  const cartProductName = await page
-    .locator(".inventory_item_name")
-    .first()
-    .textContent();
-
   // Click "Remove" on the first Cart item
   await page.locator("[data-test='remove-sauce-labs-backpack']").click();
 
   // Verify Inventory item is no longer visible
-  expect(page.locator("[data-test='inventory-item']")).toBeHidden();
+  await expect(page.locator("[data-test='inventory-item']")).toBeHidden();
 });
 
 test("Verify Cont Shopping Button", async ({ page }) => {
@@ -121,7 +103,7 @@ test("Verify Cont Shopping Button", async ({ page }) => {
   const CartPage = new Cart(page);
 
   // Click Continue Shopping Button
-  await CartPage.cont_shopping_btn.click();
+  await CartPage.contShopBtn.click();
 
   // Verify user is brought back to Inventory Page
   await expect(page.url()).toEqual("https://www.saucedemo.com/inventory.html");
@@ -135,7 +117,7 @@ test("Verify Checkout button functions", async ({ page }) => {
   const CartPage = new Cart(page);
 
   // Click Checkout Button
-  CartPage.checkout_btn.click();
+  CartPage.checkoutBtn.click();
 
   // Verify user is brought to check out page
   await expect(page.url()).toEqual(

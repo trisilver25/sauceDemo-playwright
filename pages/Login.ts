@@ -5,24 +5,24 @@ export class Login {
   page: Page;
 
   // Locators
-  readonly user_input: Locator;
-  readonly password_input: Locator;
-  readonly login_button: Locator;
+  readonly userInput: Locator;
+  readonly passwordInput: Locator;
+  readonly loginButton: Locator;
   readonly error: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.user_input = page.getByPlaceholder("Username");
-    this.password_input = page.getByPlaceholder("Password");
-    this.login_button = page.locator('[data-test="login-button"]');
+    this.userInput = page.getByPlaceholder("Username");
+    this.passwordInput = page.getByPlaceholder("Password");
+    this.loginButton = page.locator('[data-test="login-button"]');
     this.error = page.locator('[data-test="error"]');
   }
 
   async sign_in(user: string, pass: string) {
     await this.page.goto("");
-    await this.user_input.fill(user);
-    await this.password_input.fill(pass);
-    await this.login_button.click();
+    await this.userInput.fill(user);
+    await this.passwordInput.fill(pass);
+    await this.loginButton.click();
   }
 
   async isErrorVisible() {

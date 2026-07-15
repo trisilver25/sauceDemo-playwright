@@ -32,7 +32,7 @@ test("Verify error message, for a missing username", async ({ page }) => {
   const LoginPage = new Login(page);
 
   // Click "Login"
-  await LoginPage.login_button.click();
+  await LoginPage.loginButton.click();
 
   // Verify an error is visible
   await expect(LoginPage.isErrorVisible()).toBeTruthy();
@@ -48,10 +48,10 @@ test("Verify error message, for a missing password", async ({ page }) => {
   const LoginPage = new Login(page);
 
   // Fill in the username field using the testUser
-  await LoginPage.user_input.fill(testUser.user);
+  await LoginPage.userInput.fill(testUser.user);
 
   // Click "Login"
-  await LoginPage.login_button.click();
+  await LoginPage.loginButton.click();
 
   // Verify an error is visible
   await expect(LoginPage.isErrorVisible()).toBeTruthy();
@@ -65,13 +65,13 @@ test("Verify error message, for an incorrect password", async ({ page }) => {
   const LoginPage = new Login(page);
 
   // Fill in the username field using the testUser
-  await LoginPage.user_input.fill(testUser.user);
+  await LoginPage.userInput.fill(testUser.user);
 
   // Fill in the password field using testUser
-  await LoginPage.password_input.fill(testUser.invalid_pass);
+  await LoginPage.passwordInput.fill(testUser.invalid_pass);
 
   // Click "Login"
-  await LoginPage.login_button.click();
+  await LoginPage.loginButton.click();
 
   // Verify an error is visible
   await expect(LoginPage.isErrorVisible()).toBeTruthy();
@@ -95,13 +95,13 @@ test("Verify error message, for a Locked Out User", async ({ page }) => {
     pass: string;
   };
 
-  await LoginPage.user_input.fill(lockedOutUser.user);
-  await LoginPage.password_input.fill(lockedOutUser.pass);
+  await LoginPage.userInput.fill(lockedOutUser.user);
+  await LoginPage.passwordInput.fill(lockedOutUser.pass);
 
-  await LoginPage.login_button.click();
+  await LoginPage.loginButton.click();
 
   // Verify an error is visible
-  await expect(LoginPage.isErrorVisible()).toBeTruthy();
+  await expect(LoginPage.isErrorVisible()).resolves.toBeTruthy();
 
   // Verify the expected error message displays
   await expect(LoginPage.getErrorMessage()).resolves.toContain(
